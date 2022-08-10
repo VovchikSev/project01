@@ -77,7 +77,7 @@ namespace project01
 
 
         }
-        public static void Main()
+        public static void Main_2()
         {
             string[] grades = Console.ReadLine().Split(", ");
             int count_twos = 0;
@@ -129,6 +129,29 @@ namespace project01
                 }
                 Console.ReadLine();
             }
+        }
+        public static void Main()
+        {
+            string cardNumber = Console.ReadLine();
+            int min = Convert.ToInt32(cardNumber[0].ToString());
+            int max = Convert.ToInt32(cardNumber[0].ToString());
+            char[] ar = cardNumber.ToCharArray();
+
+            for (int index = 0; index < cardNumber.Length; index++)
+            {
+                int value = Convert.ToInt32(cardNumber[index].ToString());
+                if (value < min)
+                    min = value;
+                if (value > max)
+                    max = value;
+            }
+            Array.Reverse(ar);
+            cardNumber = new String(ar);
+            Console.WriteLine($"{cardNumber}{min}{max}");
+
+            Console.WriteLine($"min = {min}; max = {max}");
+
+            Console.ReadLine();
         }
     }
 }
