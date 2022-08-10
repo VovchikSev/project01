@@ -56,7 +56,7 @@ namespace project01
             Console.WriteLine(summ);
             Console.ReadLine();
         }
-        public static void Main()
+        public static void Main_1()
         {
             string[] line = Console.ReadLine().Split(" ");
             int min = Convert.ToInt32(line[0]);
@@ -74,6 +74,63 @@ namespace project01
             Console.WriteLine($"Наибольшее значение = {max}");
 
             Console.ReadLine();
+
+
+        }
+        public static void Main()
+        {
+            string[] grades = Console.ReadLine().Split(", ");
+            int count_twos = 0;
+            int count_threes = 0;
+            int count_fives = 0;
+            foreach (string s in grades)
+            {
+                int value = Convert.ToInt32(s);
+                switch (value)
+                {
+                    case 2:
+                        count_twos++;
+                        break;
+                    case 3:
+                        count_threes++;
+                        break;
+                    case 5:
+                        count_fives++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (count_fives == grades.Length)
+            {
+                // поездка на олимпиаду
+                Console.WriteLine("О, отличник появился! На олимпиаду пойдешь");
+            }
+            else
+            {
+                if (count_twos == 0)
+                {
+                    if (count_threes == 0)
+                    {
+                        //жди полгода
+                        Console.WriteLine("Живи пока, через полгода увидимся");
+                    }
+                    else
+                    {
+                        // прощай стипендия
+                        Console.WriteLine("Прощай стипендия!");
+                    }
+                }
+                else
+                {
+                    // пора в армию
+                    Console.WriteLine("Ну что, студент, пора долг Родине отдать");
+                }
+                Console.ReadLine();
+            }
+
+
 
 
         }
