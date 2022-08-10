@@ -129,10 +129,6 @@ namespace project01
                 }
                 Console.ReadLine();
             }
-
-
-
-
         }
     }
 }
