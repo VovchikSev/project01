@@ -43,6 +43,7 @@ public class Program
       //         myList.Add(value);
       // arr = myList.ToArray();
 
+        // не красивое. Зато без System.Collections.Generic
         int[] retArr = new int[arr.Length];
         int rIndex = 0;
         for (int index = 0; index < arr.Length; index++)
@@ -51,47 +52,82 @@ public class Program
                 retArr[rIndex] = arr[index];
                 rIndex++;
             }
-        arr = retArr.;
+        arr = new int[rIndex];
+        Array.Copy(retArr, arr, rIndex);
+    }
 
+    private static void ArraySort(int[] array, out int[] arr1, out int[] arr2)
+    {
+        arr1 = new int[array.Length];
+        Array.Copy(array, arr1, array.Length);
+        Array.Sort(arr1);
+
+        arr2 = new int[array.Length];
+        Array.Copy(array, arr2, array.Length);
+        Array.Sort(arr2);
+        Array.Reverse(arr2);
+
+    }
+    private static void Delta(int[] array)
+    {
+        for (int index = 0; index < array.Length; index++)
+        {
+            int value = index == 0 ? array[index] : array[index] - array[index - 1];
+            Console.Write($"{value} ");
+        }
+    }
+    private static void DeltaDecoding(int[] array)
+    {
+        for (int index = 1; index < array.Length; index++)
+        {
+            if (index > 0)
+                array[index] = array[index] + array[index - 1];
+            //int value = index == 0 ? array[index] : array[index] + array[index - 1];
+
+            Console.Write($"{array[index]} ");
+        }
+    }
+
+    private static void AhShitHereWeGoAgain(int[] vasyaArray, int hourHandAmount)
+    {
+        /*
+Дядя Вася закончил инвентаризацию на складе и приступил к записыванию результатов, 
+но в его ручке почти закончились чернила, и их не хватит на запись всех данных. 
+Вспомнив наши уроки, он решил записать только разницу между числами из его подсчетов, 
+таким образом реализовав импровизационное дельта-кодирование. Он не записал первое изначальное число, 
+зато запомнил минимальное число материалов на складе - это количество сломанных часовых стрелок. 
+Напишите для следующей программы метод AhShitHereWeGoAgain, который принимает массив из дяди-Васиных записей 
+и количество часовых стрелок в качестве аргументов и выводит в консоль результаты дяди-Васиных подсчетов через пробел.         
+        */
 
     }
 
     public static void Main()
     {
-        int[] array = { 7, 14, 3, 2, 5, 9, 0, 11, 8 };
-        ToEven(ref array);
-        foreach (var x in array)
-            Console.Write($"{x} ");
 
-        // Console.WriteLine(GeometricMean(5, 25, 1, 0));
-        // Console.WriteLine(GeometricMean(7, 7));
-        // Console.WriteLine(GeometricMean(1, 1, 27));
-        // Console.WriteLine(GeometricMean(2, 4, 1));
+        int hourHandAmount = 1468;
+        int[] vasyaArray = { 27, -15, 2, 22, 12, -55, 11 };
+        AhShitHereWeGoAgain(vasyaArray, hourHandAmount);
 
-        // int[] array1 = { 0, 10, 20, 30, 40, 50 };
-        // int[] array2 = { 1, 2, 3 };
-        // foreach (var x in ArraySum(array1, array2))
-        //     Console.Write($"{x} ");
+        // int[] deltaArray = { 8, 25, -48, 15, 19, -36 };
+        // DeltaDecoding(deltaArray);
 
-        // int[] array = { 93, -9, 15, 16, -3, 0, 18 };
-        // Opposite(array);
+        // int[] array = { -5, 14, 2, 74, 10, 0, 61 };
+        // Delta(array);
+
+
+        // int[] array = { 1, 3, 2, 4, 6, 8, 5, 7 };
+        // ArraySort(array, out int[] arr1, out int[] arr2);
+        // foreach (var x in arr1)
+        //     Console.Write(x + " ");
+        // foreach (var x in arr2)
+        //     Console.Write(x + " ");
+
+
+        // int[] array = { 7, 14, 3, 2, 5, 9, 0, 11, 8 };
+        // ToEven(ref array);
         // foreach (var x in array)
         //     Console.Write($"{x} ");
-
-        // string symbol = "A"; //Console.ReadLine();
-        // string amount = "5"; //Console.ReadLine();
-        // Print(symbol, amount, out string result);
-        // Console.WriteLine(result);
-
-        // string str = "123"; //Console.ReadLine();
-        // int a = int.Parse(str);
-        // double b = (double)a;
-        // char c = str[0];
-        // Console.WriteLine(GetTypeInfo(str));
-        // Console.WriteLine(GetTypeInfo(a));
-        // Console.WriteLine(GetTypeInfo(b));
-        // Console.WriteLine(GetTypeInfo(c));
-
 
         // это последняя строка, не удалять!!!
         Console.ReadLine();
