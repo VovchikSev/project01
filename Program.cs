@@ -136,8 +136,8 @@ public class Program
         // 1475 1502 1487 1489 1511 1523 1468 1479
         //  0    1     2    3    4    5    6   7
         if (checkIndex > 0)
-        for(int index = checkIndex; index >= 0; index--)
-        
+        for(int index = checkIndex; index >= 0; index--);
+
 
     }
 
