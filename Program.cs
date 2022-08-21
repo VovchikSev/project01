@@ -1,64 +1,100 @@
 ﻿using System;
-using System.Collections.Generic;
+// using System.Collections.Generic;
+using System.Linq;
 
-public class Program{
-
-    private static List<int> GetSyracusaSequence(int inValue)
+public class Program
+{
+    class Matrix
     {
-        List<int> result = new List<int>();
-        result.Add(inValue);
-
-        while (inValue > 1)
+        private int rows;
+        private int columns;
+        public double[][] data;
+        public Matrix()
         {
-            if (inValue % 2 == 1)
+            rows = 0;
+            columns = 0;
+            data = new double[0][];
+        }
+        public void Read()
+        {
+            int[] matrixParam = ConsoleInputToIntArray(Console.ReadLine());
+            rows = matrixParam[0];
+            columns = matrixParam[1];
+
+            data = new double[rows][];
+
+            for (int index = 0; index < rows; index++)
             {
-                inValue = inValue * 3 + 1;
+                double[] tmpArray = ConsoleInputToDoubleArray(Console.ReadLine());
+                if (tmpArray.Length == columns)
+                {
+                    data[index] = tmpArray;
+                }
+                else
+                {
+                    // ошибка длинны, ввели не корректно
+                    Console.WriteLine("Некорректные данные");
+                    Environment.Exit(1);
+                }
             }
-            else
-            {
-                inValue /= 2;
-            }
-            result.Add(inValue);
+        }
+        public void Write()
+        {
+            for (int index = 0; index < rows; index++)
+                Console.WriteLine(string.Join(" ", data[index]));
+        }
+        public void Multiply(double mul)
+        {
+            for (int index = 0; index < rows; index++)
+                data[index] = data[index].Select(val => val * mul).ToArray();
         }
 
-        return result;
+        public void Sum(Matrix adder)
+        {
+            for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+            {
+                double[] result = adder.data[rowIndex];
+                if (result.Length == data[rowIndex].Length)
+                {
+                    for(int colIndex = 0; colIndex < columns; colIndex++)
+                        data[rowIndex][colIndex] = data[rowIndex][colIndex] + result[colIndex];
+                }
+
+            }
+        }
     }
 
-
-    private static void CommaReplace(List<string> inList)
+    static int[] ConsoleInputToIntArray(string InValue)
     {
-        int indexCommaRemove = inList[0].IndexOf(',') >=0 ? 0: 1;
-        int indexCommaInsert = indexCommaRemove == 0? 1:0;
-
-        inList[indexCommaRemove] = inList[indexCommaRemove].Remove(inList[indexCommaRemove].Length - 1);
-        inList[indexCommaInsert] = inList[indexCommaInsert] + ",";
-        
+        return InValue.Split().Select(int.Parse).ToArray();
+    }
+    static double[] ConsoleInputToDoubleArray(string InValue)
+    {
+        return InValue.Split().Select(double.Parse).ToArray();
     }
 
     public static void Main()
     {
-        //string inStr =  Console.ReadLine();
-        //List<string> myList = new List<string>(Console.ReadLine().Split());
-        //List<int> intList = myList.ConvertAll(int.Parse);
-        // введеная строка превращается в список int
-        List<int> intList = new List<int>(new List<string>(Console.ReadLine().Split()).ConvertAll(int.Parse));
-        // просто вывод.
-        Console.WriteLine(string.Join(" ", intList)); 
+        var A = new Matrix();
+        A.Read();
+
+        var B = new Matrix();
+        B.Read();
+
+        A.Sum(B);
+        A.Write();
+
+        // double[] paramsList = ConsoleInputToDoubleArray(Console.ReadLine());
+        // double n = double.Parse(Console.ReadLine());
+        // paramsList = paramsList.Select(val=> val * n).ToArray();
+        // // // поверка введенного списка
+        // Console.WriteLine(string.Join(" ", paramsList));
 
 
-        // string inStr =  Console.ReadLine();//"Казнить нельзя, помиловать!";
-        // List<string> myList = new List<string>(inStr.Split());
-        // CommaReplace(myList);
-        // Console.WriteLine(string.Join(" ", myList)); 
-        
-
-        // int number = 7; //int.Parse(Console.ReadLine());
-        // foreach (var x in GetSyracusaSequence(number))
-        //     Console.Write($"{x} ");
-
+        //  последняя строка
         Console.ReadLine();
+
     }
 
 }
-
 
