@@ -6,29 +6,29 @@ public class Program
 {
     class Matrix
     {
-        private int rows;
-        private int columns;
-        public double[][] data;
-        public Matrix()
-        {
-            rows = 0;
-            columns = 0;
-            data = new double[0][];
-        }
+        public int Rows { get; private set; }
+        public int Columns { get; private set; }
+        public double[][] Data { get; private set; }
+        // public Matrix()
+        // {
+        //     Rows = 0;
+        //     Columns = 0;
+        //     Data = new double[0][];
+        // }
         public void Read()
         {
             int[] matrixParam = ConsoleInputToIntArray(Console.ReadLine());
-            rows = matrixParam[0];
-            columns = matrixParam[1];
+            Rows = matrixParam[0];
+            Columns = matrixParam[1];
 
-            data = new double[rows][];
+            Data = new double[Rows][];
 
-            for (int index = 0; index < rows; index++)
+            for (int index = 0; index < Rows; index++)
             {
                 double[] tmpArray = ConsoleInputToDoubleArray(Console.ReadLine());
-                if (tmpArray.Length == columns)
+                if (tmpArray.Length == Columns)
                 {
-                    data[index] = tmpArray;
+                    Data[index] = tmpArray;
                 }
                 else
                 {
@@ -40,26 +40,29 @@ public class Program
         }
         public void Write()
         {
-            for (int index = 0; index < rows; index++)
-                Console.WriteLine(string.Join(" ", data[index]));
+            for (int index = 0; index < Rows; index++)
+                Console.WriteLine(string.Join(" ", Data[index]));
         }
         public void Multiply(double mul)
         {
-            for (int index = 0; index < rows; index++)
-                data[index] = data[index].Select(val => val * mul).ToArray();
+            for (int index = 0; index < Rows; index++)
+                Data[index] = Data[index].Select(val => val * mul).ToArray();
         }
 
-        public void Sum(Matrix adder)
+        public void Sum(Matrix m)
         {
-            for (int rowIndex = 0; rowIndex < rows; rowIndex++)
+            for (int row = 0; row < Rows; row++)
             {
-                double[] result = adder.data[rowIndex];
-                if (result.Length == data[rowIndex].Length)
-                {
-                    for(int colIndex = 0; colIndex < columns; colIndex++)
-                        data[rowIndex][colIndex] = data[rowIndex][colIndex] + result[colIndex];
-                }
-
+                for (int column = 0; column < Columns; column++)
+                    Data[row][column] += m.Data[row][column];
+            }
+        }
+        public void Subtraction(Matrix m)
+        {
+            for (int row = 0; row < Rows; row++)
+            {
+                for (int column = 0; column < Columns; column++)
+                    Data[row][column] -= m.Data[row][column];
             }
         }
     }
@@ -84,11 +87,6 @@ public class Program
         A.Sum(B);
         A.Write();
 
-        // double[] paramsList = ConsoleInputToDoubleArray(Console.ReadLine());
-        // double n = double.Parse(Console.ReadLine());
-        // paramsList = paramsList.Select(val=> val * n).ToArray();
-        // // // поверка введенного списка
-        // Console.WriteLine(string.Join(" ", paramsList));
 
 
         //  последняя строка
